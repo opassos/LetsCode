@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_ngrok import run_with_ngrok#, Resource, Api
+from flask_ngrok import run_with_ngrok
 from flask_restful import Resource, Api
 
 import json
@@ -13,7 +13,6 @@ app = Flask(__name__)
 run_with_ngrok(app)  
 api = Api(app) 
 
-
 def salva_figura(df, classe):
     fig = plt.figure(figsize=(10, 5))
     sns.boxplot(data = df, x='survived', y='age', hue='sex');
@@ -26,7 +25,7 @@ class Filtro(Resource):
         df_agrupado = df_filtrado.groupby('sex')['age'].mean().to_frame().reset_index()
 
         df_agrupado.to_csv('resposta.csv')
-        
+        df_agrupado.to_json('resposta.json')
         salva_figura(df_filtrado, valor)
 
         return df_agrupado.to_json()
