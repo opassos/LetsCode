@@ -28,7 +28,7 @@ class Filtro(Resource):
         df_agrupado.to_json('resposta.json')
         salva_figura(df_filtrado, valor)
 
-        return df_agrupado.to_json()
+        return df_filtrado.to_json()
 
 @app.route("/")
 def home():
